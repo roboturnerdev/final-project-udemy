@@ -124,5 +124,8 @@ app.listen(3000, () => {
     console.log("server port 3000");
 });
 
+// new branch section41 test
 
-// small comment to check if my branch is working
+// the course goes:
+// section about technology
+// section adding that tech to yelpcamp
