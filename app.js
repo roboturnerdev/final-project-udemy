@@ -28,8 +28,12 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+///////////////
 // middleware
+///////////////
 
+// need to tell express to parse body in requests
+app.use(express.urlencoded({ extended: true }));
 
 
 // routes
@@ -43,10 +47,22 @@ app.get('/campgrounds', async (req, res) => {
     res.render('campgrounds/index', { campgrounds });
 });
 
+app.get('/campgrounds/new', (req, res) => {
+    res.render('campgrounds/new');
+});
+
+app.post('/campgrounds/', async (req, res) => {
+    const campground = new Campground(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+});
+
+// place routes above /:id routes so they dont get it before
 app.get('/campgrounds/:id', async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/show', { campground });
 });
+
 
 
 // // hardcoded route to get mongoose established, db created, and seeded
