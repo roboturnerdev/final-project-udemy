@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+// hardcoded route to get mongoose established, db created, and seeded
 app.get('/makecampground', async (req, res) => {
     const camp = new Campground({
         title: "Blackwater Creek",
