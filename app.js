@@ -37,17 +37,29 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// hardcoded route to get mongoose established, db created, and seeded
-app.get('/makecampground', async (req, res) => {
-    const camp = new Campground({
-        title: "Blackwater Creek",
-        price: "$9.99",
-        description: "More of a trail really.",
-        location: "Downtown Lynchburg"
-    });
-    await camp.save();
-    res.send(camp);
+// all campgrounds page
+app.get('/campgrounds', async (req, res) => {
+    const campgrounds = await Campground.find({});
+    res.render('campgrounds/index', { campgrounds });
 });
+
+app.get('/campgrounds/:id', async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    res.render('campgrounds/show', { campground });
+});
+
+
+// // hardcoded route to get mongoose established, db created, and seeded
+// app.get('/makecampground', async (req, res) => {
+//     const camp = new Campground({
+//         title: "Blackwater Creek",
+//         price: "$9.99",
+//         description: "More of a trail really.",
+//         location: "Downtown Lynchburg"
+//     });
+//     await camp.save();
+//     res.send(camp);
+// });
 
 // start server on port 3000 cause why not
 app.listen(3000, () => {
