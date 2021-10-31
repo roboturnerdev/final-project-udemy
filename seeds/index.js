@@ -46,11 +46,15 @@ const seedDB = async() => {
     for(let i = 0; i < 50; i++) {
         // random 1000 cities in the seed
         const random1000 = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 20) + 10;
 
         // make a new campground with random city and state
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`
+            title: `${sample(descriptors)} ${sample(places)}`,
+            image: 'https://source.unsplash.com/collection/155011',
+            description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius quis veniam a distinctio laborum. Sit modi numquam itaque aspernatur, odio ducimus. Minima vitae nisi fugiat sequi nostrum beatae, cum aut? Maxime qui praesentium, ea corporis deserunt error iure id rerum, esse, possimus quod tempora exercitationem nostrum. Officia iusto, delectus vitae fuga voluptatibus, quaerat architecto saepe quos earum cupiditate facere ullam?',
+            price
         });
 
         // async function to await the promise
