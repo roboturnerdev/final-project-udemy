@@ -108,7 +108,15 @@ app.delete('/campgrounds/:id', async (req, res) => {
     res.redirect('/campgrounds');
 });
 
+// get server listening 3000
+// antithesis to the 'no-spin zone'
+// we are spinning
+app.listen(3000, () => {
+    console.log("Server Port: 3000");
+    console.log("estamos girando");
+});
 
+// Old comments and notes
 
 // // hardcoded route to get mongoose established, db created, and seeded
 // app.get('/makecampground', async (req, res) => {
@@ -122,13 +130,7 @@ app.delete('/campgrounds/:id', async (req, res) => {
 //     res.send(camp);
 // });
 
-// start server on port 3000 cause why not
-app.listen(3000, () => {
-    console.log("server port 3000");
-});
 
-// new branch section41 test
-
-// the course goes:
-// section about technology
-// section adding that tech to yelpcamp
+// Robert Turner, 2021
+// @robo_turner
+// roboturnerdev@gmail.com
