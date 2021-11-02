@@ -7,6 +7,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const Joi = require('joi');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -59,7 +60,29 @@ app.get('/campgrounds/new', (req, res) => {
 
 // first post request to create a new campground and add to db
 app.post('/campgrounds/', catchAsync(async (req, res, next) => {
-    if(!req.body.campground) throw new ExpressError('Invalid campground data dewd', 400);
+    // if(!req.body.campground) throw new ExpressError('Invalid campground data dewd', 400);
+    
+    // new more explicit error handing with
+    // Joi validation
+    // helps even if the client-side validation doesnt stop
+    // the problem
+    // i.e., postman sending post requests with missing stuff
+    // skips the form submit preventative error handling
+    const campgroundSchema = Joi.object({
+       campground: Joi.object({
+           title: Joi.string().required(),
+           price: Joi.number().required().min(0),
+           image: Joi.string().required(),
+           location: Joi.string().required(),
+           description: Joi.string().required()
+       }).required()
+    });
+    const { error }= campgroundSchema.validate(req.body);
+    if(error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    }
+
     const campground = new Campground(req.body.campground);
     await campground.save();
     // redirect to the show page for the added campground
