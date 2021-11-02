@@ -116,15 +116,16 @@ app.all('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    const { message = "Oh boy, something is having gone wrong.", statusCode = 500 } = err;
-    res.status(statusCode).send(message);
+    const { statusCode = 500 } = err;
+    if(!err.message) err.message = 'No, not this. This is bad';
+    res.status(statusCode).render('error', { err });
 });
 
-// get server listening 3000
-// antithesis to the 'no-spin zone'
-// we are spinning
 app.listen(3000, () => {
+    // get server listening 3000
     console.log("Server Port: 3000");
+    // antithesis to the 'no-spin zone'
+    // we are spinning
     console.log("estamos girando");
 });
 
