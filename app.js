@@ -7,7 +7,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const Joi = require('joi');
+const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -51,15 +51,7 @@ const validateCampground = (req, res, next) => {
     // the problem
     // i.e., postman sending post requests with missing stuff
     // skips the form submit preventative error handling
-    const campgroundSchema = Joi.object({
-        campground: Joi.object({
-            title: Joi.string().required(),
-            price: Joi.number().required().min(0),
-            image: Joi.string().required(),
-            location: Joi.string().required(),
-            description: Joi.string().required()
-        }).required()
-     });
+   
      const { error } = campgroundSchema.validate(req.body);
      if(error) {
          const msg = error.details.map(el => el.message).join(',');
@@ -67,6 +59,16 @@ const validateCampground = (req, res, next) => {
      } else {
          next();
      }
+};
+
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if(error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        next();
+    }
 };
 
 // routes
@@ -114,7 +116,7 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     res.render('campgrounds/edit', { campground });
 }));
 
-app.put('/campgrounds/:id', catchAsync(async (req, res) => {
+app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
     // res.send("IT WORKED!");
     // we know adding the method-override worked for the put request
     
@@ -141,7 +143,7 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
 // initial route for post request
 // submit review to db and add review to campground
 // save both
-app.post('/campgrounds/:id/reviews', catchAsync(async(req, res) => {
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async(req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
