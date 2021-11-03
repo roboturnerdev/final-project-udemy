@@ -12,6 +12,7 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 
 // connect mongoose and name DB for yelp-camp
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -137,6 +138,18 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     res.redirect('/campgrounds');
 }));
 
+// initial route for post request
+// submit review to db and add review to campground
+// save both
+app.post('/campgrounds/:id/reviews', catchAsync(async(req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+}));
+
 // error handling
 app.all('*', (req, res, next) => {
     next(new ExpressError('page no finding', 404));
@@ -156,21 +169,8 @@ app.listen(3000, () => {
     console.log("estamos girando");
 });
 
-// Old comments and notes
 
-// // hardcoded route to get mongoose established, db created, and seeded
-// app.get('/makecampground', async (req, res) => {
-//     const camp = new Campground({
-//         title: "Blackwater Creek",
-//         price: "$9.99",
-//         description: "More of a trail really.",
-//         location: "Downtown Lynchburg"
-//     });
-//     await camp.save();
-//     res.send(camp);
-// });
-
-// Initial Commit - Section 46
+// Section 46
 // Robert Turner, 2021
 // @robo_turner
 // roboturnerdev@gmail.com
