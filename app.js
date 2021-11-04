@@ -92,18 +92,9 @@ app.listen(3000, () => {
     // we are spinning
     console.log("estamos girando");
 });
-<<<<<<< HEAD
 
 
-// Section 49 - current branch/section
-=======
-//
-//
-//
-//
-//
 // Section 49 - Complete
->>>>>>> section49
 // Robert Turner, 2021
 // @robo_turner
 // roboturnerdev@gmail.com
