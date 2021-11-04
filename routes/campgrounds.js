@@ -40,16 +40,21 @@ router.post('/', validateCampground, catchAsync(async (req, res, next) => {
 // prevent later ones from occuring
 
 router.get('/:id', catchAsync(async (req, res) => {
-    // see if the request has a good campground
     const campground = await Campground.findById(req.params.id).populate('reviews');
-    // render show site of this campground
+    if(!campground){
+        req.flash('error', 'No campground with that id');
+        return res.redirect('/campgrounds');
+    }
     res.render('campgrounds/show', { campground });
 }));
 
 router.get('/:id/edit', catchAsync(async (req, res) => {
     // see if the request could find this campground
     const campground = await Campground.findById(req.params.id);
-
+    if(!campground){
+        req.flash('error', 'Cannot edit that campground');
+        return res.redirect('/campgrounds');
+    }
     // render edit site for this campground
     res.render('campgrounds/edit', { campground });
 }));
