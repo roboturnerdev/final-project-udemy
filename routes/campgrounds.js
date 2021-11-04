@@ -66,7 +66,7 @@ router.put('/:id', validateCampground, catchAsync(async (req, res) => {
     // we can use the spread operator for the params
     // we want to send in (title, location, etc)
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
-    
+    req.flash('success', "Update successful.");
     // show page of the campground we just created
     res.redirect(`/campgrounds/${campground._id}`);
 }));
@@ -75,6 +75,7 @@ router.put('/:id', validateCampground, catchAsync(async (req, res) => {
 router.delete('/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
+    req.flash('success', 'Campground removed.');
     res.redirect('/campgrounds');
 }));
 
