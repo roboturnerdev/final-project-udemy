@@ -6,13 +6,6 @@ const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
 
 const validateCampground = (req, res, next) => {
-    // new more explicit error handing with
-    // Joi validation
-    // helps even if the client-side validation doesnt stop
-    // the problem
-    // i.e., postman sending post requests with missing stuff
-    // skips the form submit preventative error handling
-   
      const { error } = campgroundSchema.validate(req.body);
      if(error) {
          const msg = error.details.map(el => el.message).join(',');
@@ -35,11 +28,11 @@ router.get('/new', (req, res) => {
 
 // first post request to create a new campground and add to db
 router.post('/', validateCampground, catchAsync(async (req, res, next) => {
-    // if(!req.body.campground) throw new ExpressError('Invalid campground data dewd', 400);
-    
     const campground = new Campground(req.body.campground);
     await campground.save();
+
     // redirect to the show page for the added campground
+    req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);
 }));
 
