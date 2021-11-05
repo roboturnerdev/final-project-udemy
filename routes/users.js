@@ -47,7 +47,15 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
     // passport middleware makes this safe, we know someone got authenticated
     req.flash('success', 'Welcome back!');
-    res.redirect('/campgrounds');
+
+    // try the session url or give it a default
+    const redirectUrl = req.session.returnTo || '/campgrounds';
+
+    // clean up the session memory
+    delete req.session.returnTo;
+
+    // redirect
+    res.redirect(redirectUrl);
 });
 
 router.get('/logout', (req, res) => {

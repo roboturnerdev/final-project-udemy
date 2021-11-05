@@ -1,6 +1,6 @@
 This project is my final project YelpCamp from this class on Udemy. I am learning Git and GitHub as well before I begin the project so I can practice.
 
-(current branch/section: 51)
+(current branch/section: 52)
 
 Master will be updated with my project when a section is complete. When I am working in a section, that work is done on a branch called 'section##' and will be merged once the entire section is functional and ready to put to master.
 
