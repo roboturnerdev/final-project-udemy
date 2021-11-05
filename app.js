@@ -15,8 +15,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 
 // connect mongoose and name DB for yelp-camp
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
@@ -102,9 +103,21 @@ app.get('/fakeUser', async (req, res) => {
     res.send(newUser);
 });
 
+// note about passport:
+// 1. found technology that we wanted to implement
+// 2. read docs, install, and link the package
+// 3. set up tests and testing so we can
+//      a. make sure it works
+//      b. think about errors
+// 4. plan routing with new tech
+//      - with passport we need many various
+//        request handlers to login, register, etc.
+// 5. iterate on tech in app, customize it for our use
+
 // linking route files
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/', userRoutes);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 // routes
 app.get('/', (req, res) => {
