@@ -10,12 +10,31 @@ router.get('/register', (req, res) => {
 
 router.post('/register', catchAsync(async (req, res) => {
     try {   
+        // destruct these from the request
         const {email, username, password} = req.body;
+
+        // create a user with them
         const user = new User({email, username});
+
+        // register the new user and save the result
         const registeredUser = await User.register(user, password);
-        req.flash('success', 'Welcome to the site!');
-        res.redirect('/campgrounds');
+
+        // here we would like passport.authenticate() right
+        // but in this situation we can't authenticate until
+        // we have created a user. 
+        
+        // instead we :
+
+        // try to log that user in
+        req.login(registeredUser, err => {
+            if (err) return next(err);
+
+            // registration + login success logic
+            req.flash('success', 'Welcome to the site!');
+            res.redirect('/campgrounds');
+        });
     } catch(e) {
+        // problem registering
         req.flash('error', e.message);
         res.redirect('register');
     }
