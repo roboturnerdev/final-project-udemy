@@ -11,6 +11,9 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
@@ -45,6 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 const sessionConfig = {
     secret: "roboturnerdev",
     resave: false,
@@ -56,16 +60,49 @@ const sessionConfig = {
     }
 };
 
+// make sure this is done before passport.session()
 app.use(session(sessionConfig));
-
 app.use(flash());
 
+/////////////
+// passport
+/////////////
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport, use the local strategy
+// and for that, use the authenticate method
+// on the User model
+// model method comes from mongoose as a static method
+passport.use(new LocalStrategy(User.authenticate()));
+
+// how to serialize the user
+// how do we store a user in the session
+passport.serializeUser(User.serializeUser());
+
+// from plugin on mongoose also
+// how to get un-store it
+passport.deserializeUser(User.deserializeUser());
+
+// flash middleware
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 });
 
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({
+        email: 'happyman@gmail.com',
+        username: 'happyman'
+    });
+
+    // hashes the pw, stores it
+    const newUser = await User.register(user, 'password');
+    res.send(newUser);
+});
+
+// linking route files
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
 
