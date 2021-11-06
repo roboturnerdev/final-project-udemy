@@ -4,11 +4,16 @@ const campgrounds = require('../controllers/campgrounds');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, isAuthor, validateCampground } = require('../middleware');
 const Campground = require('../models/campground');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
-
+    // .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
+    .post(upload.array('image'), (req, res) => {
+        console.log(req.body, req.files);
+        res.send("multiple image upload worked");
+    });
 // make sure order of the routes won't create a problem
 // if new is after :id, it will just be considered an id
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
