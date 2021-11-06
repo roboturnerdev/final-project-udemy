@@ -2,6 +2,12 @@
 // YelpCamp!
 ////////////////
 
+// environment variables with dotenv
+// different in production mode will learn when we deploy
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 // dependencies
 const express = require('express');
 const path = require('path');
