@@ -31,6 +31,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 // first post request to create a new campground and add to db
 router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, next) => {
     const campground = new Campground(req.body.campground);
+    campground.author = req.user._id;
     await campground.save();
 
     // redirect to the show page for the added campground
@@ -42,7 +43,13 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 // prevent later ones from occuring
 
 router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews');
+    const campground = await Campground.findById(req.params.id)
+        .populate('reviews')
+        .populate('author');
+
+    // use log like this to see what campground is after that find
+    // now that we have author we can see it on the object
+    // console.log(campground);
     if(!campground){
         req.flash('error', 'No campground with that id');
         return res.redirect('/campgrounds');

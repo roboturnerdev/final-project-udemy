@@ -50,6 +50,7 @@ const seedDB = async() => {
 
         // make a new campground with random city and state
         const camp = new Campground({
+            author: '61848751f2807f3b323ca0eb',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: 'https://source.unsplash.com/collection/155011',
