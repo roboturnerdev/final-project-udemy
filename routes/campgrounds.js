@@ -31,13 +31,18 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 
 router.get('/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
-        .populate('reviews')
-        .populate('author');
+        .populate({     // populate the reviews
+            path: 'reviews',
+            populate: {
+                path: 'author' // populate the review authors
+            }
+        })
+        .populate('author'); // populate the campground author
 
     // use log like this to see what campground is after that find
     // now that we have author we can see it on the object
     // console.log(campground);
-    if(!campground){
+    if(!campground) {
         req.flash('error', 'No campground with that id');
         return res.redirect('/campgrounds');
     }
