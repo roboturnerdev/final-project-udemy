@@ -62,6 +62,17 @@ module.exports.updateCampground = async (req, res) => {
     // we can use the spread operator for the params
     // we want to send in (title, location, etc)
     const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground});
+
+
+    // map makes an array, and we dont want to push the entire array
+    // into an existing array. wont pass mongoose validation anyway
+    // because it expects (in the schema) an array of objects not an array of arrays
+    const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
+
+    // same thing with spread operator
+    // take the object from each array index to push it into images
+    campground.images.push(...imgs);
+    await campground.save();
     req.flash('success', "Update successful.");
     // show page of the campground we just created
     res.redirect(`/campgrounds/${campground._id}`);
