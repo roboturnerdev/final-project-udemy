@@ -7,7 +7,7 @@ const Campground = require('../models/campground');
 
 const multer  = require('multer');
 const { storage } = require('../cloudinary/'); // node automatically looks for index.js in a folder
-const upload = multer(storage);
+const upload = multer({ storage });
 
 router.route('/')
     .get(catchAsync(campgrounds.index))
