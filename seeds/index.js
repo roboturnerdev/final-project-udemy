@@ -53,9 +53,14 @@ const seedDB = async() => {
             author: '61848751f2807f3b323ca0eb',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/155011',
             description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius quis veniam a distinctio laborum. Sit modi numquam itaque aspernatur, odio ducimus. Minima vitae nisi fugiat sequi nostrum beatae, cum aut? Maxime qui praesentium, ea corporis deserunt error iure id rerum, esse, possimus quod tempora exercitationem nostrum. Officia iusto, delectus vitae fuga voluptatibus, quaerat architecto saepe quos earum cupiditate facere ullam?',
-            price
+            price,
+            images: [
+                {
+                  url: 'https://res.cloudinary.com/roboturnerdev/image/upload/v1636347939/YelpCamp/kadfjyudo8syxi5wkzbf.jpg',
+                  filename: 'YelpCamp/kadfjyudo8syxi5wkzbf',
+                }
+              ],
         });
         // the url for the image is an api from unsplash
         // allows me to retrieve random images from 
