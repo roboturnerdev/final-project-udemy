@@ -11,7 +11,7 @@ const upload = multer({ storage });
 
 router.route('/')
     .get(catchAsync(campgrounds.index))
-    .post(isLoggedIn, upload.array('image'), validateCampground,  catchAsync(campgrounds.createCampground));
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));
 // make sure order of the routes won't create a problem
 // if new is after :id, it will just be considered an id
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);

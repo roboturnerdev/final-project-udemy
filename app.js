@@ -100,16 +100,17 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/fakeUser', async (req, res) => {
-    const user = new User({
-        email: 'happyman@gmail.com',
-        username: 'happyman'
-    });
+// old feature to make a user
+// app.get('/fakeUser', async (req, res) => {
+//     const user = new User({
+//         email: 'happyman@gmail.com',
+//         username: 'happyman'
+//     });
 
-    // hashes the pw, stores it
-    const newUser = await User.register(user, 'password');
-    res.send(newUser);
-});
+//     // hashes the pw, stores it
+//     const newUser = await User.register(user, 'password');
+//     res.send(newUser);
+// });
 
 // note about passport:
 // 1. found technology that we wanted to implement

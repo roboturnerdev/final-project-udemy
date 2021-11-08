@@ -4,7 +4,7 @@ const Campground = require('./models/campground');
 const Review = require('./models/review');
 
 module.exports.isLoggedIn = (req, res, next) => {
-    if(!req.isAuthenticated()) {
+    if(!req.isAuthenticated()) {    // isAuthenticated function is from passport
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'Must be logged in');
         return res.redirect('/login');
