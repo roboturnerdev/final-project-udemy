@@ -18,14 +18,6 @@
                     Looks awesome.
                 </div>
             </div>
-            <input type="file" name="image" multiple>
-            <!-- <div class="mb-3">
-                <label for="image" class="form-label">Image Url</label>
-                <input type="text" class="form-control" id="image" name="campground[image]" required>
-                <div class="valid-feedback">
-                    Looks awesome.
-                </div>
-            </div> -->
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group">
@@ -43,6 +35,10 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
             </div>
+            <div class="mb-3">
+                <label for="multiImage" class="form-label">Choose image(s)...</label>
+                <input class="form-control" type="file" id="multiImage" name="image" multiple>
+              </div>
             <div class="mb-3">
                 <button class="btn btn-success">Add Campground</button>
             </div>
