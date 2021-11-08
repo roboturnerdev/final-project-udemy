@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -72,6 +73,21 @@ module.exports.updateCampground = async (req, res) => {
     // same thing with spread operator
     // take the object from each array index to push it into images
     campground.images.push(...imgs);
+
+    if(req.body.deleteImages){
+        // require the cloudinary we export from the cloudinary index.js
+        // loop over each filename in req.body.deleteImages and destroy it from cloudinary servers
+        for(let filename of req.body.deleteImages) {
+            // await it if it takes time
+            await cloudinary.uploader.destroy(filename);
+        }
+        // pull the items out of
+        // images where the
+        // filename is
+        // in the req.body.deleteImages array
+        await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
+    }
+
     await campground.save();
     req.flash('success', "Update successful.");
     // show page of the campground we just created
