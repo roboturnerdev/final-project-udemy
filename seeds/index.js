@@ -43,7 +43,7 @@ const seedDB = async() => {
     // await c.save();
 
     // setup 50 random seeds
-    for(let i = 0; i < 50; i++) {
+    for(let i = 0; i < 400; i++) {
         // random 1000 cities in the seed
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;

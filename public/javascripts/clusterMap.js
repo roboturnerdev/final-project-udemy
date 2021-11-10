@@ -1,7 +1,7 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v10',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-103.5917, 40.6699],
     zoom: 3
 });
@@ -34,20 +34,20 @@ map.on('load', () => {
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#51bbd6',
-                100,
-                '#f1f075',
-                750,
-                '#f28cb1'
+                '#00BCD4',
+                10,
+                '#2196F3',
+                50,
+                '#3F51B5'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                20,
-                100,
-                30,
-                750,
-                40
+                15, // width
+                10, // step
+                20, // width
+                50, // step
+                25  // width
             ]
         }
     });
@@ -72,7 +72,7 @@ map.on('load', () => {
         paint: {    //customize the things
             'circle-color': '#11b4da',
             'circle-radius': 4,
-            'circle-stroke-width': 10,
+            'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
         }
     });
