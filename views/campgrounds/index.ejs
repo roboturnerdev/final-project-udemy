@@ -34,5 +34,11 @@
 
 <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    
+    const campgrounds = { features: <%- JSON.stringify(campgrounds) %> };
   </script>
 <script src="/javascripts/clusterMap.js"></script>
+
+<!-- we can set the campgrounds we send in to be an object
+with an array of features by using that syntax above and sending
+in the stringified data to that property of the object -->
