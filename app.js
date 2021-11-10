@@ -29,7 +29,7 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
 // update to the env var for atlas db when live
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -105,17 +105,17 @@ app.use(
     })
 );
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+const secret = process.env.SECRET || 'roboturnerdev';
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'roboturnerdev'
+        secret
     }
 });
 
@@ -126,7 +126,7 @@ store.on("error", function(e) {
 const sessionConfig = {
     store,                  // now object has session config with store use mongo to store session
     name: 'yelpy',
-    secret: "roboturnerdev",
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
