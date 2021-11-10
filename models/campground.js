@@ -14,6 +14,12 @@ ImageSchema.virtual('thumbnail').get(function() {
 
 // Campground Schema
 
+const opts = { 
+    toJSON: {
+        virtuals: true
+    }
+};
+
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
@@ -41,6 +47,20 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts);   // by default mongoose doesnt use virtuals when you stringify to JSON
+// these options make it do that
+
+// look into virtual properties. this is allowing me to use
+// the same schema i have right now, but be compliant with mapbox
+// mapbox wants a property called properties. the way mapbox
+// loads the geojson data objects in has the rest of the access
+// given only to the "properties" property of the campground
+// virtual properties let us do that
+
+// we can also modify the popup markup here
+CampgroundSchema.virtual('properties.popUpMarkup').get(function() {
+    return `<a href="/campgrounds/${this._id}">${this.title}</a>
+    <p>${this.description.substring(0,20)}...</p>`
 });
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
