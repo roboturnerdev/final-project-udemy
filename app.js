@@ -215,7 +215,7 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen((port,) () => {
+app.listen(port, () => {
     console.log(`server port: ${port}`);
     // antithesis to the 'no-spin zone'
     // we are spinning
