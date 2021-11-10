@@ -1,14 +1,16 @@
 This project is my final project YelpCamp from this class on Udemy. I am learning Git and GitHub as well before I begin the project so I can practice.
 
-(current branch/section: 58)
+(current branch/section: 59 / Deploying)
 
 Master will be updated with my project when a section is complete. When I am working in a section, that work is done on a branch called 'section##' and will be merged once the entire section is functional and ready to put to master.
 
-I am stoked to be on this journey. It feels like it clicks more and more each day I sit down to work and learn. Please enjoy digging through whatever you want of these projects and versions.
+UPDATE:
 
-I want to thoroughly describe what my commits do, make them organized and readable, and structured. The goal is to provide a history of my work, attention to detail, and describe my decision making and knowledge along the way. Can't help but to say here that it really helps me learn and as well is easier to look back and read. Documentation is key and I love to do good doc and note taking practices.
+I am so excited to have found Colt Steele as an instructor online. His teaching methods kept me engaged and I was able to comprehend and retain the concepts well. I look forward to taking his React.js course, as well as other important courses like SQL and Data Structures and Algorithms.
 
-Check back regularly as of course it will update. I am available through any contact channel for any inquiries. 
+Please feel free to reach out with any questions or comments. I also enjoy feedback and love to make improvements, so any and everything you think I would value as a response.
+
+A portfolio resume is on the way soon.
 
 email: roboturnerdev@gmail.com
 
