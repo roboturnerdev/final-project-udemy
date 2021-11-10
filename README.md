@@ -10,8 +10,6 @@ I am so excited to have found Colt Steele as an instructor online. His teaching 
 
 Please feel free to reach out with any questions or comments. I also enjoy feedback and love to make improvements, so any and everything you think I would value as a response.
 
-A portfolio resume is on the way soon.
-
 email: roboturnerdev@gmail.com
 
 twitter: @robo_turner
