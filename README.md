@@ -1,5 +1,7 @@
 This project is my final project YelpCamp from Colt Steele's Web Developer Bootcamp 2021 on Udemy.
 
+STACK: Node.js, Express, MongoDB
+
 I have now completed the project and it is able to be run locally by:
 
 1. navigate to the root directory of the project
