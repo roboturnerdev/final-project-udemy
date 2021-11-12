@@ -1,12 +1,12 @@
-This project is my final project YelpCamp from this class on Udemy. I am learning Git and GitHub as well before I begin the project so I can practice.
+This project is my final project YelpCamp from Colt Steele's Web Developer Bootcamp 2021 on Udemy.
 
-(current branch/section: 59 / Deploying)
+I have now completed the project and it is able to be run locally by:
 
-Master will be updated with my project when a section is complete. When I am working in a section, that work is done on a branch called 'section##' and will be merged once the entire section is functional and ready to put to master.
+1. navigate to the root directory of the project
+2. npm i
+3. node app.js
 
-UPDATE:
-
-I am so excited to have found Colt Steele as an instructor online. His teaching methods kept me engaged and I was able to comprehend and retain the concepts well. I look forward to taking his React.js course, as well as other important courses like SQL and Data Structures and Algorithms.
+The project is available on localhost:3000/
 
 Please feel free to reach out with any questions or comments. I also enjoy feedback and love to make improvements, so any and everything you think I would value as a response.
 
